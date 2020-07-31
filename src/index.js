@@ -6,9 +6,9 @@ function info (bindArguments) {
   console.log (bindArguments, this.answer)
 }
 
-function bind(context,bindArguments, fn )  {
-	return function (...args) {
-		return fn.apply(context, [bindArguments,...args]);
+function bind(context, bindArguments, fn)  {
+	return function () {
+		return fn.apply(context, [bindArguments]);
 	}
 }
 var bindAsMethod = bind (global, "Окончательный вопрос жизни, Вселенной и всего такого!?", info)
