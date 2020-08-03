@@ -2,11 +2,18 @@ let global = {
   answer:42,
 };
 
-function info (bindArguments) {
-  console.log (bindArguments, this.answer)
+let bind = function bindFunction (fn, context, ...rest){
+  return function (...args) {
+    fn.apply (context, [...rest, ...args])
+  }
 }
 
-let bind = (context, bindArguments, fn) => () => fn.apply(context, [bindArguments]);
-var bindAsMethod = bind (global, "Окончательный вопрос жизни, Вселенной и всего такого!?", info)
+function info (title) {
+  console.log (title, this.answer);
+}
 
-bindAsMethod ()
+
+let bindAsMethod = bind (info, global);
+
+console.log (bindAsMethod ("Окончательный вопрос жизни, Вселенной и всего такого!?"))
+
